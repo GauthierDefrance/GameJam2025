@@ -14,7 +14,7 @@ class ImageLoader:
     def load_texture_frames(self, base_path: str, count: int) -> list:
         """
         base_path doit être du style "characters/parrots/right"
-        et count le nombre d'images (ici 4 pour right0.png → right3.png).
+        et count le nombre d'images (ici 4 pour right0.png → right2.png).
         """
         frames = []
         for i in range(count):
@@ -30,10 +30,10 @@ class ImageLoader:
     def __init__(self):
         self.images = {
             'player': {
-                "right": self.load_texture_frames("characters/parrots/right", 4),
-                "left": self.load_texture_frames("characters/parrots/left", 4),
-                "top": self.load_texture_frames("characters/parrots/up", 4),
-                "bottom": self.load_texture_frames("characters/parrots/down", 4),
+                "right": self.load_texture_frames("characters/parrots/Pdroite", 3),
+                "left": self.load_texture_frames("characters/parrots/Pgauche", 3),
+                "top": self.load_texture_frames("characters/parrots/up", 3),
+                "bottom": self.load_texture_frames("characters/parrots/down", 3),
             },
             "pnj": {
                 "lion": {
