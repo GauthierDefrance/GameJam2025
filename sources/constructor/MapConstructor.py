@@ -93,12 +93,7 @@ class MapConstructor:
         }
 
     def createNpc(self):
-        constructor = EntityConstructor()
-        self.event_zones = {
-            "poussette" : constructor.createNPC(position=(-9, -9, 0.5),
-                                                scale=(0.5, 0.5),
-                                                )
-        }
+        pass
 
 
 
