@@ -15,6 +15,14 @@ class EventManager:
         if EventManager._initialized:
             return
         self.audio_crawk = Audio('musics/sounds/squawk.ogg', autoplay=False)
+        self.audio_baby = Audio('musics/sounds/baby.ogg', autoplay=False)
+        self.audio_lion = Audio('musics/sounds/lion.ogg', autoplay=False)
+
+        self.audio_dict = {
+            "baby_cry" : self.audio_baby,
+            "lion_grr" : self.audio_lion,
+        }
+
         print(self.audio_crawk)
         EventManager._initialized = True
 
@@ -29,33 +37,50 @@ class EventManager:
             self.audio_crawk.play()
             #Vérifier si on est dans une zone d'interactions et faire le son associé
 
+        # Initialisation des verrous une seule fois
         if not hasattr(self, 'e_key_locked'):
             self.e_key_locked = False
         if not hasattr(self, 'c_key_locked'):
             self.c_key_locked = False
 
-        for zone in gameMap.event_zones.values():
-            if intersects_2d_xy(player, zone):
-                # Touche 'E' : jouer le son
-                if held_keys['e']:
-                    if not self.e_key_locked:
-                        self.e_key_locked = True
+        # --- Touche E : jouer le son actuel du joueur, et exécuter un éventuel callback ---
+        if held_keys['e']:
+            if not self.e_key_locked:
+                self.e_key_locked = True
+
+                # Jouer le son actuel du joueur s'il existe
+                if hasattr(player, 'current_sound') and player.current_sound:
+                    if player.current_sound in self.audio_dict:
+                        audio = self.audio_dict[player.current_sound]
+                        if not audio.playing:
+                            audio.play()
+
+                # Vérifie si le joueur est dans une zone avec un callback
+                for zone in gameMap.event_zones.values():
+                    if intersects_2d_xy(player, zone):
                         if hasattr(zone, 'callback') and callable(zone.callback):
                             zone.callback()
-                else:
-                    self.e_key_locked = False
+                        break  # Une seule zone suffit
+        else:
+            self.e_key_locked = False
 
-                # Touche 'C' : copier le son
-                if held_keys['c']:
-                    if not self.c_key_locked:
-                        self.c_key_locked = True
+        # --- Touche C : uniquement si dans une zone avec un son ---
+        if held_keys['c']:
+            if not self.c_key_locked:
+                self.c_key_locked = True
+
+                for zone in gameMap.event_zones.values():
+                    if intersects_2d_xy(player, zone):
                         if hasattr(zone, 'sound') and zone.sound:
-                            print("sound to play:", zone.sound)
-                            #Ici lancer un audio avec le son en question.
-                            player.current_sound =  zone.sound
-
-                else:
-                    self.c_key_locked = False
+                            if zone.sound in self.audio_dict:
+                                audio = self.audio_dict[zone.sound]
+                                if not audio.playing:
+                                    audio.play()
+                                player.current_sound = zone.sound
+                                print("Copied sound:", zone.sound)
+                        break  # On sort après la première zone détectée
+        else:
+            self.c_key_locked = False
 
 
 def LionEvent():
