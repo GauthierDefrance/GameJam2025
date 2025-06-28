@@ -100,11 +100,19 @@ class MapConstructor:
                                         soundp="baby_cry_loop"),
 
             "guard" : constructor.createEventZone(position=(7, -2.5, 0.5),
-                                        scale=(4, 5),
+                                        scale=(5, 5),
                                         callback=GuardEvent,  # EventManager().event(),
                                         name="secret_zone",
                                         color_value=color.orange,
                                         ),
+
+            "tuto": constructor.createEventZone(position=(-8, 0, 0.5),
+                                                 scale=(4, 3), # EventManager().event(),
+                                                 name="secret_zone",
+                                                 color_value=color.blue,
+                                                sound="tutos",
+                                                soundp="tutos"
+                                                 ),
         }
 
     def createNpc(self):

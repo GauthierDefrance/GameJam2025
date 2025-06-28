@@ -27,11 +27,13 @@ class EventManager:
         self.audio_baby_loop = Audio('musics/sounds/baby.ogg',loop = True, autoplay=False)
         self.audio_baby = Audio('musics/sounds/baby.ogg', autoplay=False)
         self.audio_lion = Audio('musics/sounds/lion.ogg', autoplay=False)
+        self.audio_tuto = Audio('musics/sounds/tuto.ogg', autoplay=False)
 
         self.audio_dict = {
             "baby_cry_loop" : self.audio_baby_loop,
             "baby_cry" : self.audio_baby,
             "lion_grr" : self.audio_lion,
+            "tutos" :self.audio_tuto,
         }
 
         print(self.audio_crawk)
@@ -50,11 +52,21 @@ class EventManager:
 
         if held_keys['space'] and not self.audio_crawk.playing:
             self.audio_crawk.play()
-            zone = gameMap.event_zones["lion"]
-            if intersects_2d_xy(player, zone):
-                if hasattr(zone, 'sound') and zone.sound:
-                    if zone.sound in self.audio_dict:
-                        audio = self.audio_dict[zone.sound]
+            zonel = gameMap.event_zones["lion"]
+            zonet = gameMap.event_zones["tuto"]
+            if intersects_2d_xy(player, zonel):
+                if hasattr(zonel, 'sound') and zonel.sound:
+                    if zonel.sound in self.audio_dict:
+                        audio = self.audio_dict[zonel.sound]
+                        if not audio.playing:
+                            Sequence(
+                                Wait(1),
+                                Func(audio.play)
+                            ).start()
+            elif intersects_2d_xy(player, zonet):
+                if hasattr(zonet, 'sound') and zonet.sound:
+                    if zonet.sound in self.audio_dict:
+                        audio = self.audio_dict[zonet.sound]
                         if not audio.playing:
                             Sequence(
                                 Wait(1),
