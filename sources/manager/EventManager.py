@@ -1,5 +1,7 @@
 from ursina import Audio
 
+from sources.manager.MenuManager import MenuManager
+
 
 class EventManager:
     _instance = None
@@ -18,5 +20,35 @@ class EventManager:
         EventManager._initialized = True
 
     def check(self, player, held_keys, gameMap):
+
+        if held_keys['escape']:
+            self.audio_crawk.stop()
+            #Arréter toutes musiques
+            MenuManager().showMainMenu()
+
         if held_keys['space'] and not self.audio_crawk.playing:
             self.audio_crawk.play()
+            #Vérifier si on est dans une zone d'interactions et faire le son associé
+
+        if held_keys['e']:
+            #Jouer le dernier son enregistrer
+            pass
+
+        
+        if held_keys['c']:
+            #Copier un son
+            pass
+
+
+
+
+
+def LionEvent():
+    print("Lion Event triggered!")
+
+def KidEvent():
+    print("Kid Event triggered!")
+
+def GuardEvent():
+    print("Guard Event triggered!")
+

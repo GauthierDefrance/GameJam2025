@@ -27,7 +27,8 @@ class EntityConstructor:
             scale=scale,
             position=position,
             collider='box',
-            texture=texture
+            texture=texture,
+            texture_scale = scale,
         )
 
         # Optionnel : attributs supplémentaires
@@ -50,14 +51,15 @@ class EntityConstructor:
         entity.path = []
         return entity
 
-    def createEventZone(self, position=(0, 0, 0), scale=(1, 1), callback=lambda: None, name="zone"):
+    def createEventZone(self, position=(0, 0, 0), scale=(1, 1), callback=lambda: None, name="zone", color_value=color.white):
         zone = Entity(
             name=name,
             model='quad',
             position=position,
             scale=scale,
             collider='box',
-            visible=True
+            visible=True,
+            color=color_value,
         )
 
         # Attributs supplémentaires

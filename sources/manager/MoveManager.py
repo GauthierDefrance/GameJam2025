@@ -75,7 +75,6 @@ class MoveManager:
 
     def update_animation(self, player):
         self.frame_timer += time.dt
-        print(self.frame_timer)
         if self.frame_timer > self.frame_duration:
             self.frame_timer = 0
             direction = player.direction

@@ -52,6 +52,7 @@ class ImageLoader:
                 "first" : {
                     "open" : self.load_texture_frames("textures/doors/open", 1),
                     "closed" : self.load_texture_frames("textures/doors/closed", 1),
+                    "door" : self.load_texture_frames("textures/doors/actual_door", 1),
                 }
             }
         }
