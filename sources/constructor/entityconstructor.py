@@ -86,10 +86,9 @@ class EntityConstructor:
     def createNPC(self, position=(0, 0), scale=(1, 2), color_=color.red, texture = None, name = "bob", callback=lambda: None, radius:int=0):
         npc = Entity(
             name=name,
-            model='circle',
+            model='quad',
             position=position,
             scale=scale,
-            color=color_,
             collider='box',
             texture=texture
         )
