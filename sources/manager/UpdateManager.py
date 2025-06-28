@@ -16,9 +16,13 @@ class UpdateManager:
 
     def __init__(self):
         self.current_menu = "Home"
+        self.not_launched = True
 
     def tick(self):
         if MenuManager().game_started:
+            if self.not_launched :
+                EventManager().audio_baby_loop.play()
+                self.not_launched = False
             self.update_game()
         else:
             self.update_menu()

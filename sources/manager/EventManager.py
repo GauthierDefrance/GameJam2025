@@ -41,7 +41,7 @@ class EventManager:
     def check(self, player, held_keys, gameMap):
         from sources.constructor.MapConstructor import MapConstructor
 
-        volume = clamp(1  - (1*game_started) - ((player.position - (-3,-6)).length() / 6), 0, 1)
+        volume = clamp(1 - ((player.position - (-3,-6)).length() / 6), 0, 1)
         self.audio_baby_loop.volume = volume
 
         if held_keys['escape']:
