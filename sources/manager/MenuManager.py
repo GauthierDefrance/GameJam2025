@@ -36,7 +36,6 @@ class MenuManager:
         self._set_ui_enabled(False)
         self.game_started = True
         print("Game menu !")
-        afficher("appuyez sur espace pour jacasser")
 
     def _set_ui_enabled(self, enabled: bool):
         self.start_button.enabled = enabled

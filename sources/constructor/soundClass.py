@@ -13,7 +13,8 @@ class Son :
 jacass = None
 
 class Parrot :
-    _instance = False
+    _instance = None
+    _initialized = False
 
     def __new__(cls, *args, **kwargs):
         if not cls._instance:

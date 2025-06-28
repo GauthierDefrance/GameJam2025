@@ -2,6 +2,7 @@ from ursina import Audio
 
 from sources.manager.Cutscene import Cutscene
 from sources.manager.MenuManager import MenuManager
+from sources.manager.uiManager import *
 
 
 class EventManager:
@@ -90,6 +91,13 @@ class EventManager:
         else:
             self.c_key_locked = False
 
+        if held_keys['t']:
+            if not self.t_key_locked:
+                self.t_key_locked = True
+                txt_tuto = "Commandes :\n\n\nflèches directionnelles : déplacements \n\nespace : jacasser\n\nc : copier un son\n\ne : répéter le dernier son copié\n\n\n (cliquez pour fermer)"
+                afficher_panneau(txt_tuto)
+        else:
+            self.t_key_locked = False
 
 def LionEvent():
     from sources.constructor.MapConstructor import MapConstructor

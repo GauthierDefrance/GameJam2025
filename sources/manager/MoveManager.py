@@ -28,13 +28,13 @@ class MoveManager:
         speed = player.speed * time.dt
         direction = None
 
-        if held_keys['a']:
+        if held_keys['left arrow']:
             move.x, direction = -speed, "left"
-        elif held_keys['d']:
+        if held_keys['right arrow']:
             move.x, direction =  speed, "right"
-        elif held_keys['s']:
+        if held_keys['down arrow']:
             move.y, direction = -speed, "bottom"
-        elif held_keys['w']:
+        if held_keys['up arrow']:
             move.y, direction =  speed, "top"
 
         # 2) mise à jour de la direction et reset de l’anim si besoin

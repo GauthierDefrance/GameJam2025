@@ -2,7 +2,8 @@ from ursina import *
 from sources.constructor.soundClass import *
 
 class UserInterface :
-    _instance = False
+    _instance = None
+    _initialized = False
 
     def __new__(cls, *args, **kwargs):
         if not cls._instance:
@@ -53,4 +54,30 @@ class UserInterface :
         callback(0)
 
 
+def afficher_panneau(message):
+    # Créer un fond pour le panneau (semi-transparent)
+    fond = Entity(
+        parent=camera.ui,
+        model='quad',
+        scale=(1.2, 0.6),
+        color=color.rgba(0, 0, 0, 180),
+        position=(0, 0),
+        collider = 'box'
+    )
+
+    # Créer le texte par-dessus
+    texte = Text(
+        text=message,
+        parent=fond,
+        origin=(0, 0),
+        scale=2,
+        position=(0, 0),
+        color=color.white
+    )
+
+    # Quand on clique sur le fond, on supprime le fond et le texte
+    def supprimer_panneau():
+        destroy(fond)
+
+    fond.on_click = supprimer_panneau
 
