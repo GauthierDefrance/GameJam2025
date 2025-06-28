@@ -1,5 +1,6 @@
 from ursina import Audio
 
+
 from sources.manager.Cutscene import Cutscene
 from sources.manager.MenuManager import MenuManager
 from sources.manager.uiManager import *
@@ -24,11 +25,12 @@ class EventManager:
 
 
         self.audio_crawk = Audio('musics/sounds/squawk.ogg', autoplay=False)
-        self.audio_baby_loop = Audio('musics/sounds/baby.ogg',loop = True, autoplay=True)
+        self.audio_baby_loop = Audio('musics/sounds/baby.ogg',loop = True, autoplay=False)
         self.audio_baby = Audio('musics/sounds/baby.ogg', autoplay=False)
         self.audio_lion = Audio('musics/sounds/lion.ogg', autoplay=False)
 
         self.audio_dict = {
+            "baby_cry_loop" : self.audio_baby_loop,
             "baby_cry" : self.audio_baby,
             "lion_grr" : self.audio_lion,
         }
@@ -39,7 +41,7 @@ class EventManager:
     def check(self, player, held_keys, gameMap):
         from sources.constructor.MapConstructor import MapConstructor
 
-        volume = clamp(1 - ((player.position - (-3,-6)).length() / 6), 0, 1)
+        volume = clamp(1  - (1*game_started) - ((player.position - (-3,-6)).length() / 6), 0, 1)
         self.audio_baby_loop.volume = volume
 
         if held_keys['escape']:
@@ -49,7 +51,17 @@ class EventManager:
 
         if held_keys['space'] and not self.audio_crawk.playing:
             self.audio_crawk.play()
-            #Vérifier si on est dans une zone d'interactions et faire le son associé
+            zone = gameMap.event_zones["lion"]
+            if intersects_2d_xy(player, zone):
+                if hasattr(zone, 'sound') and zone.sound:
+                    if zone.sound in self.audio_dict:
+                        audio = self.audio_dict[zone.sound]
+                        if not audio.playing:
+                            Sequence(
+                                Wait(1),
+                                Func(audio.play)
+                            ).start()
+
 
         # Initialisation des verrous une seule fois
         if not hasattr(self, 'e_key_locked'):
@@ -86,12 +98,13 @@ class EventManager:
                 for zone in gameMap.event_zones.values():
                     if intersects_2d_xy(player, zone):
                         if hasattr(zone, 'sound') and zone.sound:
-                            if zone.sound in self.audio_dict:
-                                audio = self.audio_dict[zone.sound]
-                                if not audio.playing:
-                                    audio.play()
-                                player.current_sound = zone.sound
-                                print("Copied sound:", zone.sound)
+                            if zone.soundp in self.audio_dict:
+                                audio = self.audio_dict[zone.soundp]
+                                if audio.playing:
+                                    print("Copied sound:", zone.sound)
+                                    player.current_sound = zone.sound
+                                    afficher_message_temporaire("Son copié !")
+
                         break  # On sort après la première zone détectée
         else:
             self.c_key_locked = False

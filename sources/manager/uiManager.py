@@ -81,3 +81,25 @@ def afficher_panneau(message):
 
     fond.on_click = supprimer_panneau
 
+def afficher_message_temporaire(texte, duree=1, fondu=1):
+    """
+    Affiche un message à l'écran, qui disparaît automatiquement en fondu.
+    :param texte: Le texte à afficher.
+    :param duree: Temps avant le début du fondu (en secondes).
+    :param fondu: Durée du fondu (en secondes).
+    """
+    message = Text(
+        text=texte,
+        origin=(0, 0),
+        scale=2,
+        position=(0, 0.3),
+        background=True
+    )
+
+    # On attend `duree` secondes, puis on lance le fondu, puis on détruit
+    Sequence(
+        Wait(duree),
+        Func(message.fade_out, duration=fondu),
+        Wait(fondu),
+        Func(destroy, message)
+    ).start()

@@ -52,7 +52,7 @@ class EntityConstructor:
         entity.path = []
         return entity
 
-    def createEventZone(self, position=(0, 0, 0), scale=(1, 1), callback=lambda: None, name="zone", color_value=color.white, sound:str=None):
+    def createEventZone(self, position=(0, 0, 0), scale=(1, 1), callback=lambda: None, name="zone", color_value=color.white, sound:str=None, soundp:str=None):
         zone = Entity(
             name=name,
             model='quad',
@@ -65,6 +65,7 @@ class EntityConstructor:
 
         # Attributs supplémentaires
         zone.sound = sound #String indiquant le nom du son associé
+        zone.soundp = soundp
         zone.callback = callback  # fonction à exécuter à l'entrée
         zone.triggered = False  # empêche plusieurs déclenchements
 

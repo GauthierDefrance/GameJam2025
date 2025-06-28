@@ -39,3 +39,4 @@ class Parrot :
     def play_what(self):
         uim = UserInterface()
         uim.afficher_menu(self.soundL,self.play_id)
+

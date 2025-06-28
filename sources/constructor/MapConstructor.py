@@ -75,14 +75,16 @@ class MapConstructor:
                                         callback=LionEvent,  # EventManager().event(),
                                         name="secret_zone",
                                         color_value=color.yellow,
-                                        sound="lion_grr"),
+                                        sound="lion_grr",
+                                        soundp="lion_grr"),
 
             "baby" : constructor.createEventZone(position=(-3, -4.5, 0.5),
                                         scale=(4, 1.5),
                                         callback=KidEvent,  # EventManager().event(),
                                         name="secret_zone",
                                         color_value=color.yellow,
-                                        sound="baby_cry"),
+                                        sound="baby_cry",
+                                        soundp="baby_cry_loop"),
 
             "guard" : constructor.createEventZone(position=(7, -2.5, 0.5),
                                         scale=(2, 3),
