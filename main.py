@@ -5,7 +5,6 @@ from sources.manager.MenuManager import MenuManager
 from sources.manager.MoveManager import MoveManager
 from sources.manager.EventManager import EventManager
 from sources.manager.UpdateManager import UpdateManager
-from sources.manager.uiManager import UiManager
 
 #Init de Ursina
 app = Ursina()
@@ -32,7 +31,6 @@ GameMap.createMap()
 mover = MoveManager()
 events = EventManager()
 updater = UpdateManager()
-UiManager()
 
 def update():
     updater.tick()
