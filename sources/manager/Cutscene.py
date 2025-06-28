@@ -1,49 +1,67 @@
 from ursina import *
-
+from sources.constructor.ImageLoader import ImageLoader
 from sources.manager.MenuManager import MenuManager
 
 
 class Cutscene:
     _instance = None
-    _initialized = False  # flag d'initialisation
+    _initialized = False
 
     def __new__(cls, *args, **kwargs):
         if not cls._instance:
             cls._instance = super().__new__(cls)
         return cls._instance
 
-
     def __init__(self, map_constructor):
         if Cutscene._initialized:
-            return  # ignore les appels suivants à __init__
+            return
         self.map = map_constructor
+        self.guard = None
+        self.guard_animating = False  # ✅ Flag d’animation
+        Cutscene._initialized = True
+
+    def animate_guard(self):
+        self.guard_animating = True
+
+        def update_frame():
+            if not self.guard or not self.guard_animating:
+                return
+            self.guard.current_animation = (self.guard.current_animation + 1) % len(self.guard.frames)
+            self.guard.texture = self.guard.frames[self.guard.current_animation]
+            invoke(update_frame, delay=0.25)
+
+        update_frame()
+
+    def stop_guard_animation(self, static_frame_index=1):
+        self.guard_animating = False
+        if self.guard and hasattr(self.guard, "frames"):
+            self.guard.texture = self.guard.frames[static_frame_index]
 
     def guard_enter(self):
         print("Guard enter cutscene")
         MenuManager().game_started = False
-        # Position de départ : juste derrière la porte
-        start_pos = (11, -2, 0.5)
-        target_pos = (7, -2, 0.5)
 
-        # Créer le garde
+        start_pos = (11, -2, 0)
+        target_pos = (7, -2, 0)
+        duration = 3
+
+        img = ImageLoader()
         self.guard = Entity(
-            model='cube',
+            model='quad',
             scale=(1, 2),
-            color=color.azure,
             position=start_pos,
-            texture='white_cube',
+            texture=img.images["pnj"]["gardien"]["left"][0],
             name="cutscene_guard"
         )
+        self.guard.frames = img.images["pnj"]["gardien"]["left"]
+        self.guard.current_animation = 0
 
-        # Animation d'entrée
-        duration = 3
+        self.animate_guard()
         self.guard.animate_position(target_pos, duration=duration, curve=curve.linear)
 
-        # Optionnel : afficher un message quand le garde s'arrête
         def on_arrival():
             print("Le garde est arrivé.")
-            # Ici, tu peux déclencher la suite de la cutscene
-            print(self.guard)
+            self.stop_guard_animation()
 
         invoke(on_arrival, delay=duration)
         MenuManager().game_started = True
@@ -52,21 +70,22 @@ class Cutscene:
         print("Guard escape cutscene")
         MenuManager().game_started = False
 
-        # Position de départ : dans la pièce
-        start_pos = (7, -2, 0.5)
-        target_pos = (11, -2, 0.5)  # Vers l'extérieur
+        start_pos = (7, -2, 0)
+        target_pos = (40, -2, 0)
+        duration = 2
 
-        # Créer ou réutiliser le garde
+        if not self.guard:
+            return
+
         self.guard.position = start_pos
-
-        # Animation de fuite
-        duration = 0.5
+        self.animate_guard()
         self.guard.animate_position(target_pos, duration=duration, curve=curve.linear)
 
         def on_escape():
             print("Le garde s'est enfui.")
-            destroy(self.guard)  # Optionnel : supprimer le garde après sa fuite
-            self.guard = None  # Réinitialiser
+            self.stop_guard_animation()
+            destroy(self.guard)
+            self.guard = None
 
         invoke(on_escape, delay=duration)
         MenuManager().game_started = True
