@@ -24,12 +24,11 @@ class EntityConstructor:
     def createWall(self, position=(0,0,0), scale=(1,1), texture=None,color_value=color.gray):
         wall = Entity(
             model='quad',
-            color=color_value,
             scale=scale,
             position=position,
             collider='box',
             texture=texture,
-            texture_scale = scale,
+            texture_scale = (1,1),
         )
 
         # Optionnel : attributs supplémentaires
@@ -77,7 +76,6 @@ class EntityConstructor:
             model='quad',
             position=position,
             scale=scale,
-            color=color_,
             collider='box',
             texture=texture
         )
@@ -96,3 +94,14 @@ class EntityConstructor:
         npc.callback = callback
         npc.contact_radius = radius
         return npc
+
+    def createGrass(self, position=(0,0,0), scale=(1,1), color_value=color.white, texture=None):
+        img = ImageLoader()
+        sidewalk = Entity(
+            model='quad',
+            scale=scale,
+            position=position,
+            texture=texture,
+            collider='box'  # facultatif si tu veux collision
+        )
+        return sidewalk

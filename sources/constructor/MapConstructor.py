@@ -45,21 +45,34 @@ class MapConstructor:
         self.moving_objects = []
 
     def createWalls(self):
+        img = ImageLoader()
         self.walls = [
-            self.constructor.createWall((0, -5.5), (20, 1), "brick"),  # bas
-            self.constructor.createWall((0, 5.5), (20, 1), "brick"),  # haut
-            self.constructor.createWall((-9.5, 0), (1, 12), "brick"),  # gauche
+            self.constructor.createWall((0, -5.5), (19, 1), img.images["wall"]["birdcage_wall_bottom"][0]),  # bas
+            self.constructor.createWall((0, 5.5), (19, 1), img.images["wall"]["birdcage_wall_top"][0]),  # haut
+
 
             # Mur droit en deux parties pour laisser une ouverture au milieu
-            self.constructor.createWall((9.5, 2.25), (1, 7.25), "brick"),  # partie haute
-            self.constructor.createWall((9.5, -4.5), (1, 3), "brick"),  # partie basse
+            self.constructor.createWall((-10.29, 0), (0.42, 10), img.images["wall"]["birdcage_wall_side"][0]),  # gauche
+            self.constructor.createWall((10, 2), (0.42, 7), img.images["wall"]["birdcage_wall_side"][0]),
+            self.constructor.createWall((10, -4.25), (0.42, 1.75), img.images["wall"]["birdcage_wall_side"][0]),  # partie basse
+
+
+            # Coins
+            self.constructor.createWall((-10, 5.5), (1, 1), img.images["wall"]["birdcage_wall_top_left_corner"][0]),
+            # coin haut gauche
+            self.constructor.createWall((9.7, 5.5), (1, 1), img.images["wall"]["birdcage_wall_top_right_corner"][0]),
+            # coin haut droit
+            self.constructor.createWall((-10, -5.5), (1, 1), img.images["wall"]["birdcage_wall_bottom_left_corner"][0]),
+            # coin bas gauche
+            self.constructor.createWall((9.7, -5.5), (1, 1), img.images["wall"]["birdcage_wall_bottom_right_corner"][0])
+            # coin bas droit
         ]
 
     def createDoors(self):
         img = ImageLoader()
         self.doors = {
-            'east_door': self.constructor.createDoor((9.5, -2, -1), (1, 2), color.gray, False, "east_door", img.images["doors"]["first"]["closed"][0]),
-            'real_east_door': self.constructor.createDoor((9.5, -2, 0.5), (1, 2), color.gray, False, "east_door", img.images["doors"]["first"]["door"][0])
+            'east_door': self.constructor.createDoor((10.35, -2, -1), (1.25, 3), color.gray, False, "east_door", img.images["doors"]["first"]["closed"][0]),
+            'real_east_door': self.constructor.createDoor((10.35, -2, 0.5), (1.25, 3), color.gray, False, "east_door", img.images["doors"]["first"]["door"][0])
         }
         self.doors['real_east_door'].visible = False
 
@@ -111,10 +124,26 @@ class MapConstructor:
 
 
     def createGrass(self):
-        ground = Entity(
+        img = ImageLoader()
+        self.grounds = [ Entity(
             model='quad',
-            scale=(20, 12),
+            scale=(20.3, 12),
             position=(0, 0, 1),
             texture='grass',
             color=color.green,
-        )
+        ),
+            self.constructor.createGrass(position=(10.75, -3, 0.5),scale=(1.5, 2),texture=img.images["ground"]["sidewalk"]["door"][0],),
+            self.constructor.createGrass(position=(10.75, -4, 0.5),scale=(1.5, 2),texture=img.images["ground"]["sidewalk"]["right"][0],),
+            self.constructor.createGrass(position=(10.75, -5, 0.51),scale=(1.5, 2),texture=img.images["ground"]["sidewalk"]["right"][0],),
+            self.constructor.createGrass(position=(10.5, -7, 0.5),scale=(2, 2),texture=img.images["ground"]["sidewalk"]["bottom-right"][0],),
+            self.constructor.createGrass(position=(10.5, -7, 0.51),scale=(2, 2),texture=img.images["ground"]["sidewalk"]["bottom"][0],),
+            self.constructor.createGrass(position=(8.5, -7, 0.51), scale=(2, 1),texture=img.images["ground"]["sidewalk"]["bottom"][0], ),
+            self.constructor.createGrass(position=(6.5, -7, 0.51), scale=(2, 1),texture=img.images["ground"]["sidewalk"]["bottom"][0], ),
+            self.constructor.createGrass(position=(4.5, -7, 0.51), scale=(2, 1),texture=img.images["ground"]["sidewalk"]["bottom"][0], ),
+            self.constructor.createGrass(position=(2.5, -7, 0.51), scale=(2, 1),texture=img.images["ground"]["sidewalk"]["bottom"][0], ),
+            self.constructor.createGrass(position=(0.5, -7, 0.51), scale=(2, 1),texture=img.images["ground"]["sidewalk"]["bottom"][0], ),
+
+
+
+
+            ]

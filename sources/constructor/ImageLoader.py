@@ -56,6 +56,7 @@ class ImageLoader:
                     "bottom" : self.load_texture_frames("textures/road/little_sidewalk_bottom", 1),
                     "right" : self.load_texture_frames("textures/road/little_sidewalk_right", 1),
                     "bottom-right": self.load_texture_frames("textures/road/little_sidewalk_bottom_right_corner", 1),
+                    "door": self.load_texture_frames("textures/road/sidewalk_birdcage_door", 1),
                 },
                 "little-sidewalk": {
                     "bottom": self.load_texture_frames("textures/road/sidewalk_bottom", 1),

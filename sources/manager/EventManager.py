@@ -1,6 +1,5 @@
 from ursina import Audio
 
-
 from sources.manager.Cutscene import Cutscene
 from sources.manager.MenuManager import MenuManager
 from sources.manager.uiManager import *
@@ -40,8 +39,8 @@ class EventManager:
 
     def check(self, player, held_keys, gameMap):
         from sources.constructor.MapConstructor import MapConstructor
-
-        volume = clamp(1 - ((player.position - (-3,-6)).length() / 8), 0, 1)
+        game_started=False
+        volume = clamp(1  - (1*game_started) - ((player.position - (-3,-6)).length() / 6), 0, 1)
         self.audio_baby_loop.volume = volume
 
         if held_keys['escape']:
