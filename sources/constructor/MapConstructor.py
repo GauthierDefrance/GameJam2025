@@ -1,5 +1,7 @@
+from PIL.ImageOps import scale
 from ursina import *
 
+from sources import constructor
 from sources.constructor.ImageLoader import ImageLoader
 from sources.constructor.entityconstructor import EntityConstructor
 from sources.manager.EventManager import LionEvent, KidEvent, GuardEvent
@@ -91,7 +93,12 @@ class MapConstructor:
         }
 
     def createNpc(self):
-        pass
+        constructor = EntityConstructor()
+        self.event_zones = {
+            "poussette" : constructor.createNPC(position=(-9, -9, 0.5),
+                                                scale=(0.5, 0.5),
+                                                )
+        }
 
 
 

@@ -82,3 +82,15 @@ class EntityConstructor:
         )
         door.is_open = is_open  # Ajout du flag d'état
         return door
+
+    def createNPC(self, position=(0, 0), scale=(1, 2), color_=color.red, texture = None, name = "bob"):
+        npc = Entity(
+            name=name,
+            model='circle',
+            position=position,
+            scale=scale,
+            color=color_,
+            collider='box',
+            texture=texture
+        )
+        return npc

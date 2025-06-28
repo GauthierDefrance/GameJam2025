@@ -24,6 +24,7 @@ class EventManager:
 
 
         self.audio_crawk = Audio('musics/sounds/squawk.ogg', autoplay=False)
+        self.audio_baby_loop = Audio('musics/sounds/baby.ogg',loop = True, autoplay=True)
         self.audio_baby = Audio('musics/sounds/baby.ogg', autoplay=False)
         self.audio_lion = Audio('musics/sounds/lion.ogg', autoplay=False)
 
@@ -37,6 +38,8 @@ class EventManager:
 
     def check(self, player, held_keys, gameMap):
         from sources.constructor.MapConstructor import MapConstructor
+        volume = clamp(1 - (distance / max_distance), 0, 1)
+        son.volume = volume
         if held_keys['escape']:
             self.audio_crawk.stop()
             #Arréter toutes musiques
