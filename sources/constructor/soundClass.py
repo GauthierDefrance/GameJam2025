@@ -1,3 +1,5 @@
+from sources.manager.uiManager import *
+
 class Son :
     def __init__(self,nom,sound,ids):
         self.nom = nom
@@ -10,8 +12,8 @@ class Son :
 
 jacass = None
 
-class parrot :
-    _instance = None
+class Parrot :
+    _instance = False
 
     def __new__(cls, *args, **kwargs):
         if not cls._instance:
@@ -20,11 +22,19 @@ class parrot :
 
 
     def __init__(self):
+        if Parrot._initialized:
+            return
+
         self.soundL = [jacass]
         self.last = jacass
+        Parrot._initialized = True
+
+    def play_id(self,ids):
+        self.soundL[ids].splay()
 
     def play_last(self):
         self.last.splay()
 
     def play_what(self):
-        
+        uim = UserInterface()
+        uim.afficher_menu(self.soundL,self.play_id)
