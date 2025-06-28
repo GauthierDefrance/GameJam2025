@@ -25,8 +25,6 @@ camera.fov = 10
 GameMap = MapConstructor()
 GameMap.createMap()
 
-
-
 #The managers
 mover = MoveManager()
 events = EventManager()

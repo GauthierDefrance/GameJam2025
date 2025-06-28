@@ -39,9 +39,17 @@ class ImageLoader:
             },
             "pnj": {
                 "lion": {
-                    "grawl": self.load_texture_frames("characters/lion/grawl", 0),
-                    "sit": self.load_texture_frames("characters/lion/sit", 0),
+                    "grawl": self.load_texture_frames("characters/lion/grawl", 1),
+                    "sit": self.load_texture_frames("characters/lion/stand", 1),
                 },
+                "gardien" : {
+                    "left" : self.load_texture_frames("characters/gardien/Gardiengauche", 3),
+                },
+                "poussete" : {
+                    "still" : self.load_texture_frames("characters/poussete/still", 1),
+                }
+
+
             },
             "ground": {},
             "wall": {
