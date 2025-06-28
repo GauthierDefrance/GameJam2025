@@ -27,6 +27,7 @@ class MenuManager:
         self.menu = "Home"
         self._set_ui_enabled(True)
         self.game_started = False
+        camera.position = (-900, -900)
         print("Home menu !")
 
     def showGame(self):

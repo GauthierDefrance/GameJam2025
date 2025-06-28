@@ -22,6 +22,7 @@ class MapConstructor:
         self.props = []
         self.event_zones = []
         self.npc = []
+        self.doors = []
         self.constructor = EntityConstructor()
         self.player = None
 
@@ -33,6 +34,7 @@ class MapConstructor:
         self.createProps()
         self.createEvent()
         self.createNpc()
+        self.createDoors()
         self.player = self.constructor.createPlayer()
 
     def createMovingObject(self):
@@ -45,6 +47,9 @@ class MapConstructor:
             self.constructor.createWall(position=(-9.5, 0), scale=(1, 12)),  # gauche
             self.constructor.createWall(position=(9.5, 0), scale=(1, 12)),  # droite
         ]
+
+    def createDoors(self):
+        self.doors = {}
 
     def createProps(self):
         pass
