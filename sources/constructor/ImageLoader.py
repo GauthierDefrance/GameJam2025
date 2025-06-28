@@ -32,8 +32,8 @@ class ImageLoader:
             'player': {
                 "right": self.load_texture_frames("characters/parrots/Pdroite", 3),
                 "left": self.load_texture_frames("characters/parrots/Pgauche", 3),
-                "top": self.load_texture_frames("characters/parrots/up", 3),
-                "bottom": self.load_texture_frames("characters/parrots/down", 3),
+                "top": self.load_texture_frames("characters/parrots/Pdos", 3),
+                "bottom": self.load_texture_frames("characters/parrots/Pface", 3),
             },
             "pnj": {
                 "lion": {

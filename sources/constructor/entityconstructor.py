@@ -1,5 +1,5 @@
 from ursina import *
-
+from config import *
 from sources.constructor.ImageLoader import ImageLoader
 
 
@@ -14,10 +14,10 @@ class EntityConstructor:
         )
 
         # Attributs utiles en top-down 2D
-        player.speed = 4                  # vitesse de déplacement
-        player.direction = "right"        # direction du regard
-        player.current_animation = 0      # frame de l'animation
-        player.score = 0                  # score ou autre variable de progression
+        player.speed = PLAYER_SPEED
+        player.direction = DEFAULT_PLAYER_DIRECTION
+        player.current_animation = 0
+        player.score = 0
         return player
 
     def createWall(self, position=(0,0,0), scale=(1,1), color_value=color.gray, texture=None):
@@ -49,3 +49,19 @@ class EntityConstructor:
         entity.current_animation = 0
         entity.path = []
         return entity
+
+    def createEventZone(self, position=(0, 0, 0), scale=(1, 1), callback=lambda: None, name="zone"):
+        zone = Entity(
+            name=name,
+            model='quad',
+            position=position,
+            scale=scale,
+            collider='box',
+            visible=True
+        )
+
+        # Attributs supplémentaires
+        zone.callback = callback  # fonction à exécuter à l'entrée
+        zone.triggered = False  # empêche plusieurs déclenchements
+
+        return zone
