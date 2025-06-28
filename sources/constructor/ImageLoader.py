@@ -68,6 +68,7 @@ class ImageLoader:
                 },
                 "road": {
                     "basic" : self.load_texture_frames("textures/road/road", 1),
+                    "sidewalk" : self.load_texture_frames("textures/road/sidewalk", 1),
                 },
             },
             "wall": {
@@ -86,7 +87,9 @@ class ImageLoader:
 
 
             },
-            "props": {},
+            "props": {
+                "avocatier" : self.load_texture_frames("avocatier", 1),
+            },
             "doors": {
                 "first" : {
                     "open" : self.load_texture_frames("textures/doors/open", 1),

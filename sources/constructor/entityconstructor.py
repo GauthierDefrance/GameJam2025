@@ -95,7 +95,20 @@ class EntityConstructor:
         npc.contact_radius = radius
         return npc
 
-    def createGrass(self, position=(0,0,0), scale=(1,1), color_value=color.white, texture=None):
+    def createGrass(self, position=(0,0,0), scale=(1,1), color_value=color.white, texture=None, texture_scale=(1,1)):
+        img = ImageLoader()
+        sidewalk = Entity(
+            model='quad',
+            scale=scale,
+            position=position,
+            texture=texture,
+            texture_scale=texture_scale,
+            collider='box'  # facultatif si tu veux collision
+        )
+        return sidewalk
+
+
+    def createProps(self, position=(0,0,0), scale=(1,1), color_value=color.white, texture=None):
         img = ImageLoader()
         sidewalk = Entity(
             model='quad',

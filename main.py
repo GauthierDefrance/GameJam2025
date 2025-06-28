@@ -19,7 +19,7 @@ img = ImageLoader()
 
 #Init de la caméra
 camera.orthographic = True
-camera.fov = 10
+camera.fov = 20
 
 #Create map
 GameMap = MapConstructor()
