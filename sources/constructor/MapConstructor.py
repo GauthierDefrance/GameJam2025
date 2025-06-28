@@ -1,5 +1,6 @@
 from ursina import *
 
+from sources.constructor.ImageLoader import ImageLoader
 from sources.constructor.entityconstructor import EntityConstructor
 from sources.manager.EventManager import EventManager
 
@@ -35,6 +36,7 @@ class MapConstructor:
         self.createEvent()
         self.createNpc()
         self.createDoors()
+        self.createGrass()
         self.player = self.constructor.createPlayer()
 
     def createMovingObject(self):
@@ -42,14 +44,20 @@ class MapConstructor:
 
     def createWalls(self):
         self.walls = [
-            self.constructor.createWall(position=(0, -5.5), scale=(20, 1)),  # bas
-            self.constructor.createWall(position=(0, 5.5), scale=(20, 1)),  # haut
+            self.constructor.createWall((0, -5.5), (20, 1), "brick"),  # bas
+            self.constructor.createWall((0, 5.5), (20, 1), "brick"),  # haut
             self.constructor.createWall(position=(-9.5, 0), scale=(1, 12)),  # gauche
-            self.constructor.createWall(position=(9.5, 0), scale=(1, 12)),  # droite
+
+            # Mur droit en deux parties pour laisser une ouverture au milieu
+            self.constructor.createWall(position=(9.5, 2.5), scale=(1, 7)),  # partie haute
+            self.constructor.createWall(position=(9.5, -4.5), scale=(1, 3)),  # partie basse
         ]
 
     def createDoors(self):
-        self.doors = {}
+        img = ImageLoader()
+        self.doors = {
+            'east_door': self.constructor.createDoor((9.5, -2), (1, 2), color.gray, True, "east_door", img.images["doors"]["first"]["open"][0])
+        }
 
     def createProps(self):
         pass
@@ -58,10 +66,21 @@ class MapConstructor:
         constructor = EntityConstructor()
         self.event_zones = [
             constructor.createEventZone(position=(3, 0),
-                                        scale=(2, 2),
+                                        scale=(1, 1),
                                         callback=None, #EventManager().event(),
                                         name="secret_zone"),
         ]
 
     def createNpc(self):
         pass
+
+
+
+    def createGrass(self):
+        ground = Entity(
+            model='quad',
+            scale=(20, 12),
+            position=(0, 0, 1),
+            texture='grass',
+            color=color.green,
+        )

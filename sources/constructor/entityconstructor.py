@@ -20,7 +20,7 @@ class EntityConstructor:
         player.score = 0
         return player
 
-    def createWall(self, position=(0,0,0), scale=(1,1), color_value=color.gray, texture=None):
+    def createWall(self, position=(0,0,0), scale=(1,1), texture=None,color_value=color.gray):
         wall = Entity(
             model='quad',
             color=color_value,
@@ -65,3 +65,16 @@ class EntityConstructor:
         zone.triggered = False  # empêche plusieurs déclenchements
 
         return zone
+
+    def createDoor(self, position=(0, 0), scale=(1, 2), color_=color.brown, is_open=False, name="door", texture = None):
+        door = Entity(
+            name=name,
+            model='quad',
+            position=position,
+            scale=scale,
+            color=color_,
+            collider='box',
+            texture=texture
+        )
+        door.is_open = is_open  # Ajout du flag d'état
+        return door

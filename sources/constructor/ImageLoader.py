@@ -28,6 +28,8 @@ class ImageLoader:
 
 
     def __init__(self):
+        if hasattr(self, 'initialized'):
+            return
         self.images = {
             'player': {
                 "right": self.load_texture_frames("characters/parrots/Pdroite", 3),
@@ -45,5 +47,11 @@ class ImageLoader:
             "wall": {
                 "brick" : self.load_texture_frames("textures/wall/brick", 1),
             },
-            "props": {}
+            "props": {},
+            "doors": {
+                "first" : {
+                    "open" : self.load_texture_frames("textures/doors/open", 1),
+                    "closed" : self.load_texture_frames("textures/doors/closed", 1),
+                }
+            }
         }

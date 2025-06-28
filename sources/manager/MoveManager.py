@@ -45,7 +45,9 @@ class MoveManager:
                 player.direction         = direction
             self.last_direction = direction
 
-        colliders = walls + list(MapConstructor().doors.values())
+        closed_doors = [door for door in MapConstructor().doors.values() if not getattr(door, 'is_open', False)]
+
+        colliders = walls + closed_doors
 
         collided = False
         player.x += move.x
