@@ -1,4 +1,6 @@
 from ursina import Audio
+
+from sources.manager.Cutscene import Cutscene
 from sources.manager.MenuManager import MenuManager
 
 
@@ -14,6 +16,12 @@ class EventManager:
     def __init__(self):
         if EventManager._initialized:
             return
+
+        self.event_guard_inside = False
+        self.event_guard_RunAway = False
+
+
+
         self.audio_crawk = Audio('musics/sounds/squawk.ogg', autoplay=False)
         self.audio_baby = Audio('musics/sounds/baby.ogg', autoplay=False)
         self.audio_lion = Audio('musics/sounds/lion.ogg', autoplay=False)
@@ -86,7 +94,6 @@ class EventManager:
 def LionEvent():
     from sources.constructor.MapConstructor import MapConstructor
     player = MapConstructor().player
-
     print("Lion Event triggered!")
 
 def KidEvent():
@@ -98,6 +105,21 @@ def KidEvent():
 def GuardEvent():
     from sources.constructor.MapConstructor import MapConstructor
     player = MapConstructor().player
+    cutscene = Cutscene(MapConstructor())
+
+
+    if player.current_sound=="baby_cry" and not EventManager().event_guard_inside:
+        mc = MapConstructor()
+        mc.doors['real_east_door'].visible = True
+        cutscene.guard_enter()
+        EventManager().event_guard_inside = True
+
+    elif player.current_sound=="lion_grr" and not EventManager().event_guard_RunAway and EventManager().event_guard_inside :
+        cutscene.guard_escape()
+        EventManager().event_guard_RunAway = True
+        mc = MapConstructor()
+        mc.doors['east_door'].is_open = True
+        mc.doors['real_east_door'].is_open = True
 
     print("Guard Event triggered!")
 

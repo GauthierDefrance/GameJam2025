@@ -56,9 +56,10 @@ class MapConstructor:
     def createDoors(self):
         img = ImageLoader()
         self.doors = {
-            'east_door': self.constructor.createDoor((9.5, -2, -1), (1, 2), color.gray, True, "east_door", img.images["doors"]["first"]["closed"][0]),
-            'real_east_door': self.constructor.createDoor((9.5, -2, 0.5), (1, 2), color.gray, True, "east_door", img.images["doors"]["first"]["door"][0])
+            'east_door': self.constructor.createDoor((9.5, -2, -1), (1, 2), color.gray, False, "east_door", img.images["doors"]["first"]["closed"][0]),
+            'real_east_door': self.constructor.createDoor((9.5, -2, 0.5), (1, 2), color.gray, False, "east_door", img.images["doors"]["first"]["door"][0])
         }
+        self.doors['real_east_door'].visible = False
 
     def createProps(self):
         pass

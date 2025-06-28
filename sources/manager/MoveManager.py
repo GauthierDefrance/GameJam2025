@@ -2,6 +2,7 @@ from ursina import time, Vec2
 
 from sources.constructor.ImageLoader import ImageLoader
 from sources.constructor.MapConstructor import MapConstructor
+from sources.manager.EventManager import intersects_2d_xy
 
 
 class MoveManager:
@@ -52,14 +53,14 @@ class MoveManager:
         collided = False
         player.x += move.x
         for wall in colliders:
-            if player.intersects(wall).hit:
+            if intersects_2d_xy(player,wall):
                 player.x    -= move.x
                 collided      = True
                 break
 
         player.y += move.y
         for wall in colliders:
-            if player.intersects(wall).hit:
+            if intersects_2d_xy(player,wall):
                 player.y    -= move.y
                 collided      = True
                 break
