@@ -45,8 +45,8 @@ class ImageLoader:
                 "gardien" : {
                     "left" : self.load_texture_frames("characters/gardien/Gardiengauche", 3),
                 },
-                "poussete" : {
-                    "still" : self.load_texture_frames("characters/poussete/still", 1),
+                "poussette" : {
+                    "still" : self.load_texture_frames("characters/poussette/still", 1),
                 }
 
 

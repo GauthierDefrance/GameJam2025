@@ -93,7 +93,18 @@ class MapConstructor:
         }
 
     def createNpc(self):
+<<<<<<< Updated upstream
         pass
+=======
+        img = ImageLoader()
+        constructor = EntityConstructor()
+        self.npcs = {
+            "poussette" : constructor.createNPC(position=(-9, -9, 0.5),
+                                                scale=(0.5, 0.5),
+                                                texture=img.images["pnj"]["poussette"]["still"][0],
+                                                )
+        }
+>>>>>>> Stashed changes
 
 
 
