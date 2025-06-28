@@ -87,7 +87,7 @@ class MapConstructor:
                                         soundp="baby_cry_loop"),
 
             "guard" : constructor.createEventZone(position=(7, -2.5, 0.5),
-                                        scale=(2, 3),
+                                        scale=(4, 5),
                                         callback=GuardEvent,  # EventManager().event(),
                                         name="secret_zone",
                                         color_value=color.orange,
