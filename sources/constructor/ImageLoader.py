@@ -51,9 +51,39 @@ class ImageLoader:
 
 
             },
-            "ground": {},
+            "ground": {
+                "sidewalk" : {
+                    "bottom" : self.load_texture_frames("textures/road/little_sidewalk_bottom", 1),
+                    "right" : self.load_texture_frames("textures/road/little_sidewalk_right", 1),
+                    "bottom-right": self.load_texture_frames("textures/road/little_sidewalk_bottom_right_corner", 1),
+                },
+                "little-sidewalk": {
+                    "bottom": self.load_texture_frames("textures/road/sidewalk_bottom", 1),
+                    "right": self.load_texture_frames("textures/road/sidewalk_right", 1),
+                    "left": self.load_texture_frames("textures/road/sidewalk_left", 1),
+                    "bottom-right": self.load_texture_frames("textures/road/sidewalk_bottom_right_corner", 1),
+                    "bottom-left": self.load_texture_frames("textures/road/sidewalk_bottom_left_corner", 1),
+                    "top-right": self.load_texture_frames("textures/road/sidewalk_top_right_corner", 1),
+                },
+                "road": {
+                    "basic" : self.load_texture_frames("textures/road/road", 1),
+                },
+            },
             "wall": {
                 "brick" : self.load_texture_frames("textures/wall/brick", 1),
+                "birdcage_wall_bottom" : self.load_texture_frames("textures/wall/birdcage_wall_bottom", 1),
+                "birdcage_wall_bottom_left_corner" : self.load_texture_frames("textures/wall/birdcage_wall_bottom_left_corner", 1),
+                "birdcage_wall_bottom_right_corner" : self.load_texture_frames("textures/wall/birdcage_wall_bottom_right_corner", 1),
+                "birdcage_wall_top" : self.load_texture_frames("textures/wall/birdcage_wall_top", 1),
+                "birdcage_wall_side" : self.load_texture_frames("textures/wall/birdcage_wall_side", 1),
+                "birdcage_wall_top_left_corner" : self.load_texture_frames("textures/wall/birdcage_wall_top_left_corner", 1),
+                "birdcage_wall_top_right_corner" : self.load_texture_frames("textures/wall/birdcage_wall_top_right_corner", 1),
+                "lion_cage_bars" : self.load_texture_frames("textures/wall/lion_cage_bars", 1),
+                "lion_cage_wall_bottom" : self.load_texture_frames("textures/wall/lion_cage_wall_bottom", 1),
+                "lion_cage_wall_bottom_right_corner" : self.load_texture_frames("textures/wall/lion_cage_wall_bottom_right_corner", 1),
+                "lion_cage_wall_side" : self.load_texture_frames("textures/wall/lion_cage_wall_side", 1),
+
+
             },
             "props": {},
             "doors": {
