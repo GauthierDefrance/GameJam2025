@@ -18,6 +18,7 @@ class EntityConstructor:
         player.direction = DEFAULT_PLAYER_DIRECTION
         player.current_animation = 0
         player.score = 0
+        player.current_sound = None
         return player
 
     def createWall(self, position=(0,0,0), scale=(1,1), texture=None,color_value=color.gray):
@@ -51,7 +52,7 @@ class EntityConstructor:
         entity.path = []
         return entity
 
-    def createEventZone(self, position=(0, 0, 0), scale=(1, 1), callback=lambda: None, name="zone", color_value=color.white):
+    def createEventZone(self, position=(0, 0, 0), scale=(1, 1), callback=lambda: None, name="zone", color_value=color.white, sound:str=None):
         zone = Entity(
             name=name,
             model='quad',
@@ -63,6 +64,7 @@ class EntityConstructor:
         )
 
         # Attributs supplémentaires
+        zone.sound = sound #String indiquant le nom du son associé
         zone.callback = callback  # fonction à exécuter à l'entrée
         zone.triggered = False  # empêche plusieurs déclenchements
 

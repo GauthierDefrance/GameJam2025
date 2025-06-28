@@ -29,39 +29,57 @@ class EventManager:
             self.audio_crawk.play()
             #Vérifier si on est dans une zone d'interactions et faire le son associé
 
-        if held_keys['e'] and not self.e_key_locked:
-            self.e_key_locked = True
-            for zone in gameMap.event_zones.values():
-                if intersects_2d_xy(player, zone):
-                    print(f"Player is in zone: {zone.name}")
-                    if hasattr(zone, 'callback') and callable(zone.callback):
-                        zone.callback()
-                        break
-        elif not held_keys['e']:
+        if not hasattr(self, 'e_key_locked'):
             self.e_key_locked = False
-
-            # ----- C -----
-        if held_keys['c'] and not self.c_key_locked:
-            self.c_key_locked = True
-            for zone in gameMap.event_zones.values():
-                if intersects_2d_xy(player, zone):
-                    print(f"Player is in zone: {zone.name}")
-                    if hasattr(zone, 'callback') and callable(zone.callback):
-                        zone.callback()
-                        break
-        elif not held_keys['c']:
+        if not hasattr(self, 'c_key_locked'):
             self.c_key_locked = False
 
+        for zone in gameMap.event_zones.values():
+            if intersects_2d_xy(player, zone):
+                # Touche 'E' : jouer le son
+                if held_keys['e']:
+                    if not self.e_key_locked:
+                        self.e_key_locked = True
+                        if hasattr(zone, 'callback') and callable(zone.callback):
+                            zone.callback()
+                else:
+                    self.e_key_locked = False
+
+                # Touche 'C' : copier le son
+                if held_keys['c']:
+                    if not self.c_key_locked:
+                        self.c_key_locked = True
+                        if hasattr(zone, 'sound') and zone.sound:
+                            print("sound to play:", zone.sound)
+                            #Ici lancer un audio avec le son en question.
+                            player.current_sound =  zone.sound
+
+                else:
+                    self.c_key_locked = False
 
 
 def LionEvent():
+    from sources.constructor.MapConstructor import MapConstructor
+    player = MapConstructor().player
+
     print("Lion Event triggered!")
 
 def KidEvent():
+    from sources.constructor.MapConstructor import MapConstructor
+    player = MapConstructor().player
+
     print("Kid Event triggered!")
 
 def GuardEvent():
+    from sources.constructor.MapConstructor import MapConstructor
+    player = MapConstructor().player
+
     print("Guard Event triggered!")
+
+
+
+
+
 
 def intersects_2d_xy(entity_a, entity_b):
     # Calcule les bords pour chaque entité en X et Y
